@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amos Aleksiato Ziliwu - Full-Stack Web Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1a2332;
+            --accent-blue: #3b82f6;
+            --accent-blue-light: #60a5fa;
+            --accent-cyan: #06b6d4;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --shadow-glow: rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Background Effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .logo img {
+            height: 34px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 6rem 0;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            animation-delay: 0.2s;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.4rem, 3.2vw + 1.2rem, 3.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 0.9rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-text h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent-blue-light), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            max-width: 18ch;
+            text-wrap: balance;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.05rem, 0.7vw + 0.85rem, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            color: var(--text-muted);
+            margin-bottom: 2.2rem;
+            line-height: 1.75;
+            font-size: 1rem;
+            max-width: 62ch;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-blue-light);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .profile-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            margin: 0 auto 2rem;
+            display: grid;
+            place-items: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            position: absolute;
+            inset: 4px;
+            width: calc(100% - 8px);
+            height: calc(100% - 8px);
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .profile-info h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-role {
+            text-align: center;
+            color: var(--accent-blue-light);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: white;
+            box-shadow: 0 10px 30px -10px var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-blue);
+        }
+
+        /* Section Titles */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        #about {
+            background: var(--bg-secondary);
+            margin: 0 -100vw;
+            padding-left: calc(50vw - 600px);
+            padding-right: calc(50vw - 600px);
+            animation-delay: 0.3s;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-highlights {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .highlight-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(5px);
+        }
+
+        .highlight-card h4 {
+            font-family: 'Syne', sans-serif;
+            color: var(--accent-blue-light);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Skills Section */
+        #skills {
+            animation-delay: 0.4s;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px -15px var(--shadow-glow);
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-category h3 {
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue-light);
+        }
+
+        /* Experience Section */
+        #experience {
+            background: var(--bg-secondary);
+            margin: 0 -100vw;
+            padding-left: calc(50vw - 600px);
+            padding-right: calc(50vw - 600px);
+            animation-delay: 0.5s;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-cyan));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.4rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            border: 3px solid var(--bg-secondary);
+            box-shadow: 0 0 0 3px var(--shadow-glow);
+        }
+
+        .timeline-content {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(10px);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-company {
+            color: var(--accent-blue-light);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-period {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .timeline-description ul {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-description li {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Projects Section */
+        #projects {
+            animation-delay: 0.6s;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 25px 50px -15px var(--shadow-glow);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-type {
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border: 1px solid transparent;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-blue-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 0.8rem;
+        }
+
+        /* Awards Section */
+        #awards {
+            background: var(--bg-secondary);
+            margin: 0 -100vw;
+            padding-left: calc(50vw - 600px);
+            padding-right: calc(50vw - 600px);
+            animation-delay: 0.7s;
+        }
+
+        .awards-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .award-card {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .award-card:hover {
+            border-color: var(--accent-blue);
+            transform: scale(1.02);
+        }
+
+        .award-badge {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .award-content h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .award-issuer {
+            color: var(--accent-blue-light);
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .award-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .award-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .award-description ul {
+            margin-top: 0.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .award-description li {
+            margin-bottom: 0.3rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        #contact {
+            animation-delay: 0.8s;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        /* Make entire contact card clickable */
+        a.contact-item {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .contact-details a {
+            color: var(--accent-blue-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-tertiary);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-link span {
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content,
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 { font-size: clamp(2.2rem, 4.2vw + 0.9rem, 3.0rem); }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            #about,
+            #experience,
+            #awards {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-text h1 { font-size: clamp(2.0rem, 6vw + 0.5rem, 2.55rem); }
+            .hero-tagline { font-size: 1.05rem; }
+            .hero-description { font-size: 0.98rem; }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .profile-image {
+                width: 190px;
+                height: 190px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .award-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--accent-blue);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <img src="logosaya.png" alt="Logo Amos Aleksiato Ziliwu" loading="eager" decoding="async">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#awards">Awards</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>
+                        Hi, I'm<br>
+                        <span class="gradient-text">Amos Aleksiato Ziliwu</span>
+                    </h1>
+                    <p class="hero-tagline">Full-Stack Web Developer & Laravel Enthusiast</p>
+                    <p class="hero-description">
+                        Mahasiswa Informatika dengan passion dalam pengembangan aplikasi web modern. 
+                        Berpengalaman dalam membangun solusi web end-to-end menggunakan Laravel, PHP, 
+                        dan JavaScript dengan fokus pada kualitas kode dan user experience.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <span>Get In Touch</span>
+                            <span>→</span>
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">View Projects</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">7+</span>
+                            <span class="stat-label">Projects Completed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3.81</span>
+                            <span class="stat-label">GPA Achievement</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">Top 20</span>
+                            <span class="stat-label">SDI IBM Program</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <img src="profile.png" alt="Foto Amos Aleksiato Ziliwu" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                            <span aria-hidden="true">AZ</span>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Amos Aleksiato Ziliwu</h3>
+                            <p class="profile-role">Full-Stack Developer</p>
+                            <p class="profile-location">
+                                <span>📍</span>
+                                Sleman, Yogyakarta
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Get To Know Me</p>
+                <h2 class="section-title">About Me</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Saya adalah mahasiswa Informatika di Universitas Kristen Immanuel dengan IPK 3.81, 
+                        memiliki ketertarikan mendalam dalam pengembangan aplikasi web. Pengalaman saya 
+                        mencakup pengembangan backend dan frontend, dengan keahlian khusus dalam ekosistem 
+                        PHP dan JavaScript.
+                    </p>
+                    <p>
+                        Melalui berbagai proyek dan pengalaman magang, saya telah mengembangkan kemampuan 
+                        dalam membangun aplikasi web yang fungsional dan user-friendly. Saya terbiasa 
+                        bekerja dengan Git/GitHub untuk version control dan berkolaborasi dalam tim 
+                        pengembangan.
+                    </p>
+                    <p>
+                        Saya memiliki komitmen tinggi terhadap pembelajaran berkelanjutan dan selalu 
+                        berusaha mengikuti perkembangan teknologi web terkini untuk meningkatkan 
+                        kompetensi saya sebagai developer.
+                    </p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <h4>🎓 Education</h4>
+                        <p>Sarjana Informatika - Universitas Kristen Immanuel (Expected 2026)</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>💼 Experience</h4>
+                        <p>Full-Stack Developer Intern at PT Elsofinar Jabeshpray Anugerah</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🏆 Achievement</h4>
+                        <p>Top 20 Overall & Top 10 Code Category - IBM x Hacktiv8 SDI Program</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📚 Currently Learning</h4>
+                        <p>Full-Stack Web Development Course at CODEPOLITAN</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">My Expertise</p>
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-description">
+                    Teknologi dan tools yang saya gunakan untuk membangun aplikasi web modern
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon">🎨</div>
+                    <h3>Frontend Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Bootstrap</span>
+                        <span class="skill-tag">Blade Laravel</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>Backend Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">REST API</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">MariaDB</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">🛠️</div>
+                    <h3>Tools & Technologies</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">VPS Deployment</span>
+                        <span class="skill-tag">Composer</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">💡</div>
+                    <h3>Soft Skills</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Team Collaboration</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Communication</span>
+                        <span class="skill-tag">Adaptability</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">My Journey</p>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-title">Full-Stack Developer Intern</h3>
+                                <p class="timeline-company">PT Elsofinar Jabeshpray Anugerah</p>
+                            </div>
+                            <span class="timeline-period">Feb - Jun 2025</span>
+                        </div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Terlibat dalam pengembangan 3 website institusi (gereja, rumah sakit, dan sekolah)</li>
+                                <li>Mengembangkan backend dan frontend menggunakan Laravel, HTML, CSS, Bootstrap, dan JavaScript</li>
+                                <li>Berkolaborasi dalam tim menggunakan Git & GitHub serta melakukan deployment ke VPS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-title">Asisten Praktikum</h3>
+                                <p class="timeline-company">Rekayasa Perangkat Lunak - Universitas Kristen Immanuel</p>
+                            </div>
+                            <span class="timeline-period">Feb - Jun 2025</span>
+                        </div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Mendampingi dosen dalam pelaksanaan praktikum RPL selama satu semester</li>
+                                <li>Mengajarkan sesi praktikum dari analisis kebutuhan hingga pengujian perangkat lunak</li>
+                                <li>Membimbing mahasiswa secara teknis dan membantu evaluasi hasil praktik</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-title">Bendahara Senat</h3>
+                                <p class="timeline-company">Fakultas Sains dan Komputer - UKRIM</p>
+                            </div>
+                            <span class="timeline-period">Aug 2022 - Jul 2024</span>
+                        </div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Mengelola anggaran dan keuangan organisasi fakultas</li>
+                                <li>Membuat laporan keuangan berkala dengan transparansi penuh</li>
+                                <li>Berkolaborasi dalam perencanaan 10+ kegiatan fakultas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-title">Pengajar</h3>
+                                <p class="timeline-company">Program Fun Basic Programming - UKRIM</p>
+                            </div>
+                            <span class="timeline-period">Feb - May 2022</span>
+                        </div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Mengajar konsep dasar pemrograman kepada 20+ mahasiswa</li>
+                                <li>Memberikan sesi praktik dan pendampingan untuk pemahaman mendalam</li>
+                                <li>Membantu pelaksanaan program akademik untuk mata kuliah pemrograman dasar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">My Work</p>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-description">
+                    Beberapa proyek yang telah saya kerjakan dengan berbagai teknologi web modern
+                </p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Sambisari Coffee</h3>
+                                <p class="project-type">Full-Stack Web App</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Website/aplikasi untuk bisnis cafe “Sambisari Coffee” dengan fitur manajemen konten dan antarmuka web modern.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">Blade</span>
+                            <span class="tech-badge">PHP</span>
+                            <span class="tech-badge">JavaScript</span>
+                        </div>
+                        <a href="https://github.com/AmosZiliwu01/Sambisari-Coffe" target="_blank" rel="noopener noreferrer" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Website Benevita Consulting</h3>
+                                <p class="project-type">Individual Project</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Website profil usaha konsultasi dengan fitur landing page, informasi layanan, 
+                            kontak, dan dashboard admin yang fully responsive.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">PHP</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">Bootstrap</span>
+                        </div>
+                        <a href="https://github.com/bnvtcnslt/benevita" target="_blank" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">SMA Sanjaya XIV Website</h3>
+                                <p class="project-type">Team Project</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Website profil sekolah dengan fitur berita, galeri, profil guru, 
+                            pengumuman, dan dashboard admin sekolah yang comprehensive.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">Bootstrap</span>
+                            <span class="tech-badge">MySQL</span>
+                        </div>
+                        <a href="https://github.com/AmosZiliwu01/SMA-SANJAYA-XIV-NANGGULAN" target="_blank" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Website Profil Gereja</h3>
+                                <p class="project-type">Internship Project</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Website profil gereja berbasis REST API dengan fitur galeri kegiatan, 
+                            berita gereja, dan API JSON endpoint untuk integrasi.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">REST API</span>
+                            <span class="tech-badge">Bootstrap</span>
+                            <span class="tech-badge">MySQL</span>
+                        </div>
+                        <a href="https://github.com/AmosZiliwu01/Website-Gereja" target="_blank" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">SIMRS - Hospital Management</h3>
+                                <p class="project-type">Team Project</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Sistem Informasi Manajemen Rumah Sakit dengan fitur informasi rumah sakit, 
+                            jadwal dokter, dan struktur navigasi modular.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">Blade</span>
+                            <span class="tech-badge">Bootstrap</span>
+                            <span class="tech-badge">HTML/CSS</span>
+                        </div>
+                        <a href="https://github.com/SIMRS-BITRISOFT/SIMRS-BITRISOFT" target="_blank" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Aplikasi Perpustakaan Flipbook</h3>
+                                <p class="project-type">University Project</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Sistem perpustakaan digital dengan fitur upload PDF, pembacaan Flipbook, 
+                            manajemen akun, dan role-based access untuk admin dan mahasiswa.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">PHP</span>
+                            <span class="tech-badge">PDF Processing</span>
+                            <span class="tech-badge">MySQL</span>
+                        </div>
+                        <a href="https://github.com/PPL-FlipBook/Kompak" target="_blank" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Recognition</p>
+                <h2 class="section-title">Awards & Achievements</h2>
+            </div>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <div class="award-badge">🏆</div>
+                    <div class="award-content">
+                        <h3>Top 20 Overall Performer & Top 10 Code Category</h3>
+                        <p class="award-issuer">Student Developer Initiative (SDI) Program – IBM x Hacktiv8</p>
+                        <p class="award-date">Juli 2025 – Januari 2026</p>
+                        <div class="award-description">
+                            <ul>
+                                <li>Terpilih sebagai Top 20 peserta terbaik dari 10.000+ peserta terdaftar</li>
+                                <li>Meraih Top 10 kategori Code berdasarkan kualitas implementasi</li>
+                                <li>Mengembangkan dan mempresentasikan capstone project aplikasi web</li>
+                                <li>Mengikuti IBM Office Visit sebagai bagian dari program puncak</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Let's Connect</p>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-description">
+                    Saya terbuka untuk peluang kolaborasi, magang, atau proyek freelance. 
+                    Mari terhubung dan berdiskusi!
+                </p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <a class="contact-item" href="mailto:amosaleksiatoziliwu@gmail.com" aria-label="Kirim email ke amosaleksiatoziliwu@gmail.com">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>amosaleksiatoziliwu@gmail.com</p>
+                        </div>
+                    </a>
+                    <a class="contact-item" href="https://wa.me/6282275625828" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp ke +62 822 7562 5828">
+                        <div class="contact-icon">💬</div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>+62 822 7562 5828</p>
+                        </div>
+                    </a>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>Sleman, Yogyakarta, Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/amos-aleksiato-ziliwu" target="_blank" class="social-link">
+                        <div class="social-icon">💼</div>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/AmosZiliwu01" target="_blank" class="social-link">
+                        <div class="social-icon">💻</div>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="mailto:amosaleksiatoziliwu@gmail.com" class="social-link">
+                        <div class="social-icon">✉️</div>
+                        <span>Email Me</span>
+                    </a>
+                    <a href="Amos_Aleksiato_Ziliwu_CV_Computer_Science.pdf" download class="social-link">
+                        <div class="social-icon">📄</div>
+                        <span>Download CV</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Amos Aleksiato Ziliwu. All rights reserved.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                Built with passion using modern web technologies
+            </p>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Active navigation highlight
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
